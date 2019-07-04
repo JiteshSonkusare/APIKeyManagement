@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CustomerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CustomerApiKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApiKey" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Expires" Type="datetime" />
+          <Property Name="Locked" Type="bit" Nullable="false" />
+          <Property Name="LockedUntil" Type="datetime" />
+          <Property Name="LockedOn" Type="datetime" />
+          <Property Name="Comment" Type="varchar" MaxLength="253" />
+          <Property Name="IsPublic" Type="bit" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Changed" Type="datetime" Nullable="false" />
+          <Property Name="ChangedBy" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerApiKeyRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApiKeyId" Type="int" Nullable="false" />
+          <Property Name="Mode" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Method" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Domain" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Operation" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Ip" Type="varchar" MaxLength="253" Nullable="false" />
+          <Property Name="ApplicationName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Changed" Type="datetime" Nullable="false" />
+          <Property Name="ChangedBy" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CustomerApiKeyRule_CustomerApiKey">
+          <End Role="CustomerApiKey" Type="Self.CustomerApiKey" Multiplicity="1" />
+          <End Role="CustomerApiKeyRule" Type="Self.CustomerApiKeyRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerApiKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerApiKeyRule">
+              <PropertyRef Name="ApiKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CustomerDBModelStoreContainer">
+          <EntitySet Name="CustomerApiKey" EntityType="Self.CustomerApiKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerApiKeyRule" EntityType="Self.CustomerApiKeyRule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CustomerApiKeyRule_CustomerApiKey" Association="Self.FK_CustomerApiKeyRule_CustomerApiKey">
+            <End Role="CustomerApiKey" EntitySet="CustomerApiKey" />
+            <End Role="CustomerApiKeyRule" EntitySet="CustomerApiKeyRule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CustomerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CustomerApiKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApiKey" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Expires" Type="DateTime" Precision="3" />
+          <Property Name="Locked" Type="Boolean" Nullable="false" />
+          <Property Name="LockedUntil" Type="DateTime" Precision="3" />
+          <Property Name="LockedOn" Type="DateTime" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="253" FixedLength="false" Unicode="false" />
+          <Property Name="IsPublic" Type="Boolean" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Changed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChangedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CustomerApiKeyRules" Relationship="Self.FK_CustomerApiKeyRule_CustomerApiKey" FromRole="CustomerApiKey" ToRole="CustomerApiKeyRule" />
+        </EntityType>
+        <EntityType Name="CustomerApiKeyRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApiKeyId" Type="Int32" Nullable="false" />
+          <Property Name="Mode" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Method" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Domain" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Operation" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ip" Type="String" MaxLength="253" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Changed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChangedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CustomerApiKey" Relationship="Self.FK_CustomerApiKeyRule_CustomerApiKey" FromRole="CustomerApiKeyRule" ToRole="CustomerApiKey" />
+        </EntityType>
+        <Association Name="FK_CustomerApiKeyRule_CustomerApiKey">
+          <End Role="CustomerApiKey" Type="Self.CustomerApiKey" Multiplicity="1" />
+          <End Role="CustomerApiKeyRule" Type="Self.CustomerApiKeyRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerApiKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerApiKeyRule">
+              <PropertyRef Name="ApiKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CustomerDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CustomerApiKeys" EntityType="Self.CustomerApiKey" />
+          <EntitySet Name="CustomerApiKeyRules" EntityType="Self.CustomerApiKeyRule" />
+          <AssociationSet Name="FK_CustomerApiKeyRule_CustomerApiKey" Association="Self.FK_CustomerApiKeyRule_CustomerApiKey">
+            <End Role="CustomerApiKey" EntitySet="CustomerApiKeys" />
+            <End Role="CustomerApiKeyRule" EntitySet="CustomerApiKeyRules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CustomerDBModelStoreContainer" CdmEntityContainer="CustomerDBEntities">
+          <EntitySetMapping Name="CustomerApiKeys">
+            <EntityTypeMapping TypeName="CustomerDBModel.CustomerApiKey">
+              <MappingFragment StoreEntitySet="CustomerApiKey">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ApiKey" ColumnName="ApiKey" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="LockedUntil" ColumnName="LockedUntil" />
+                <ScalarProperty Name="LockedOn" ColumnName="LockedOn" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Changed" ColumnName="Changed" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerApiKeyRules">
+            <EntityTypeMapping TypeName="CustomerDBModel.CustomerApiKeyRule">
+              <MappingFragment StoreEntitySet="CustomerApiKeyRule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ApiKeyId" ColumnName="ApiKeyId" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="Ip" ColumnName="Ip" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Changed" ColumnName="Changed" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
