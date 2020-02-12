@@ -25,7 +25,6 @@ namespace DataAccessLayer.ApiKey
 
         #endregion ApiKey 
 
-
         #region ApiKey Rule 
 
         IList<Model.CustomerApiKeyRule> GetCustomerApiKeyRulesByApiKey(int id);

@@ -111,7 +111,6 @@ namespace DataAccessLayer
             return tmp;
         }
 
-        // Locked API keys
         public static CustomerApiKey MapFull(this CustomerApiKey customerApiKey, bool locked, string lockedUntil)
         {
             customerApiKey.Locked = locked;
@@ -129,7 +128,7 @@ namespace DataAccessLayer
 
             return customerApiKey;
         }
-        // Locked API keys
+
         #endregion
     }
 }
